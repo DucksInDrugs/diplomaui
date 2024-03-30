@@ -1,5 +1,19 @@
 .styckynav {
 	position: -webkit-sticky; /* Safari */
 	position: sticky;
+	display: flex;
+    justify-content: space-between;
+	width: 70%;
 	top: 0;
+	padding-left: 15%;
+    padding-right: 15%;
+    float: left;
+}
+
+.images {
+	position: relative;
+	width: 18px;
+    height: 18px;
+	margin-right: 3px;
+	color: #1c35e7;
 }

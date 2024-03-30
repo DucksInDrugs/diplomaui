@@ -1,3 +1,4 @@
+import arrow from './arrow.svg'
 import React, {useState} from 'react';
 import classes from './BackToTopButton.module.css'
   
@@ -26,7 +27,7 @@ const BackToTopButton = () =>{
   
   return ( 
     <button onClick={scrollToTop} className={classes.btn} style={{display: visible ? 'inline' : 'none'}}>
-        <a/>
+        <img src={arrow} className={classes.btn}/>
     </button> 
      
   ); 
