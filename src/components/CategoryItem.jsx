@@ -3,10 +3,16 @@ import { Link } from "react-router-dom";
 
 const CategoryItem = ({props}) => {
     return (
-        <Link to={`/category/${props.id}`}>
-            <strong>{props.title}</strong>
-            <div>{props.photoUrl}</div>
-        </Link>
+        <li className="card">
+            <Link to={`/category/${props.id}`}>
+                <img src="https://www.w3schools.com/images/picture.jpg"/>
+                <div className="card-text">
+                    <strong>{props.title}</strong>
+                    <p className="card-description">Тут описание категории</p>
+                    <div>{props.photoUrl}</div>
+                </div>
+            </Link>
+        </li>
     )
 }
 

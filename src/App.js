@@ -11,6 +11,7 @@ import Main from './pages/Main';
 import Error from './pages/Error';
 import Categories from './pages/Categories';
 import CategoryBody from './pages/CategoryBody';
+import Books from './pages/Books';
 
 function App() {
 
@@ -27,35 +28,17 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* <Routes>
-        <Route path='/' element={<Main/>}>
-        </Route>
-        
-      </Routes> */}
       <Routes>
         <Route path='/' element={<Main/>}/>
         <Route path='/error' element={<Error/>}/>
         <Route path='/categories' element={<Categories/>}/>
         <Route path='/category/:id' element={<CategoryBody/>}/>
-        {/* <Route>
-          <Categories/>
-        </Route>
-        <Route path='/infobycategory'>
-          <CategoriesItems/>
-        </Route> */}
+        <Route path='/books' element={<Books/>}/>
+
         <Route path='*' element={<Navigate to='/error' replace/>}/>
       </Routes>
       <BackToTopButton/>
     </BrowserRouter>
-      
-      // {categoriesError &&
-      //   <h1>Произошла ошибка ${categoriesError}</h1>
-      // }
-      // {isCategoriesLoading
-      //   ? <h1>Идет загрузка</h1>
-      //   : <CategoriesList categories={categories}/>
-      // }
-      // 
   );
 }
 

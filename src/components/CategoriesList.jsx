@@ -3,11 +3,13 @@ import CategoryItem from "./CategoryItem";
 
 const CategoriesList = ({categories}) => {
     return (
-        <div>
+        <div className="content">
             <h1>Список категорий</h1>
-            {categories.map((category) =>
-                <CategoryItem props={category} key={category.id}/>
-            )}
+            <ul className="cards">
+                {categories.map((category) =>
+                    <CategoryItem props={category} key={category.id}/>
+                )}
+            </ul>
         </div>
     )
 }

@@ -3,11 +3,14 @@
 	position: sticky;
 	display: flex;
     justify-content: space-between;
-	width: 70%;
 	top: 0;
 	padding-left: 15%;
     padding-right: 15%;
     float: left;
+	height: 90px;
+	background-color: lightgray;
+	align-items: center;
+    margin-bottom: 38px;
 }
 
 .images {
