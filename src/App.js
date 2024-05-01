@@ -12,8 +12,15 @@ import Error from './pages/Error';
 import Categories from './pages/Categories';
 import CategoryBody from './pages/CategoryBody';
 import Books from './pages/Books';
+import PrivateRoute from './components/PrivateRoute';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import { userService } from './API/UserService'
+import { Role } from './helpers/role'
 
 function App() {
+  const [user, setUser] = useState({});
+
 
   const [categories, setCategories] = useState([])
   
@@ -23,8 +30,9 @@ function App() {
   })
 
   useEffect(() => {
-    //fetchCategories()
-  }, [])
+    const subscription = userService.user.subscribe(x => setUser(x));
+    return subscription.unsubscribe;
+}, []);
 
   return (
     <BrowserRouter>
@@ -32,8 +40,11 @@ function App() {
         <Route path='/' element={<Main/>}/>
         <Route path='/error' element={<Error/>}/>
         <Route path='/categories' element={<Categories/>}/>
-        <Route path='/category/:id' element={<CategoryBody/>}/>
+        <Route path='/category/:id' element={<PrivateRoute roles={[Role.Admin, Role.User, Role.SpecialUser]} component={CategoryBody}/>}/>
         <Route path='/books' element={<Books/>}/>
+
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/register' element={<Register/>}/>
 
         <Route path='*' element={<Navigate to='/error' replace/>}/>
       </Routes>
