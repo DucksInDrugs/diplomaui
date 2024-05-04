@@ -1,7 +1,7 @@
 export default class VideoService {
     static async getAll() {
         const response = await fetch(
-            'http://localhost:5071/api/Video',
+            'http://localhost:33998/api/Video',
             {
                 method: 'get'
             }
@@ -11,7 +11,7 @@ export default class VideoService {
 
     static async getById(id) {
         const response = await fetch(
-            `http://localhost:5071/api/Video/${id}`,
+            `http://localhost:33998/api/Video/${id}`,
             {
                 method: 'get',
             }
@@ -21,7 +21,7 @@ export default class VideoService {
 
     static async getByCategoryId(categoryId) {
         const response = await fetch(
-            `http://localhost:5071/api/Video/GetByСategory/${categoryId}`,
+            `http://localhost:33998/api/Video/GetByСategory/${categoryId}`,
             {
                 method: 'get',
             }

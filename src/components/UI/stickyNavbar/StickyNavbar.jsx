@@ -3,6 +3,7 @@ import videos from './videos.svg';
 import books from './books.svg';
 import home from './home.svg';
 import logout from './logout.svg';
+import profile from './profile.svg';
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import classes from './StickyNavbar.module.css'
@@ -15,7 +16,7 @@ const StickyNavbar = () => {
 
     useEffect(() => {
         const subscription = userService.user.subscribe(x => setUser(x));
-        //return subscription.unsubscribe;
+        return subscription.unsubscribe;
     }, []);
 
 
@@ -39,10 +40,15 @@ const StickyNavbar = () => {
             </NavLink>
             <SearchInput/>
             { user &&
+            <>
+            <NavLink to='/profile'>
+                <img src={profile} className={classes.images}></img>
+            </NavLink>
             <NavLink onClick={userService.logout}>
                 <img src={logout} className={classes.images}></img>
                 Выход
-            </NavLink>}
+            </NavLink>
+            </>}
         </nav>
     )
 }

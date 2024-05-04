@@ -15,6 +15,13 @@ import Books from './pages/Books';
 import PrivateRoute from './components/PrivateRoute';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Profile from './pages/Profile';
+import UsersList from './pages/UsersList';
+import AddOrEditProfile from './pages/AddOrEditProfile';
+import AddOrEditCategory from './pages/AddOrEditCategory';
+import AddOrEditTest from './pages/AddOrEditTest';
+import TestsAdmin from './pages/TestsAdmin';
+import CategoriesAdmin from './pages/CategoriesAdmin';
 import { userService } from './API/UserService'
 import { Role } from './helpers/role'
 
@@ -35,7 +42,9 @@ function App() {
 }, []);
 
   return (
+    <>
     <BrowserRouter>
+    <StickyNavbar/>
       <Routes>
         <Route path='/' element={<Main/>}/>
         <Route path='/error' element={<Error/>}/>
@@ -45,11 +54,24 @@ function App() {
 
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
+        <Route path='/profile' element={<Profile/>}/>
+        <Route path='/users' element={<PrivateRoute roles={[Role.Admin]} component={UsersList}/>}/>
+        <Route path='/user-add' element={<PrivateRoute roles={[Role.Admin]} component={AddOrEditProfile}/>}/>
+        <Route path='/user-edit/:id' element={<PrivateRoute roles={[Role.Admin]} component={AddOrEditProfile}/>}/>
+
+        <Route path='/categories-admin' element={<PrivateRoute roles={[Role.Admin]} component={CategoriesAdmin}/>}/>
+        <Route path='/category-add' element={<PrivateRoute roles={[Role.Admin]} component={AddOrEditCategory}/>}/>
+        <Route path='/category-edit/:id' element={<PrivateRoute roles={[Role.Admin]} component={AddOrEditCategory}/>}/>
+
+        <Route path='/tests-admin' element={<PrivateRoute roles={[Role.Admin]} component={TestsAdmin}/>}/>
+        <Route path='/test-add' element={<PrivateRoute roles={[Role.Admin]} component={AddOrEditTest}/>}/>
+        <Route path='/test-edit/:id' element={<PrivateRoute roles={[Role.Admin]} component={AddOrEditTest}/>}/>
 
         <Route path='*' element={<Navigate to='/error' replace/>}/>
       </Routes>
       <BackToTopButton/>
     </BrowserRouter>
+    </>
   );
 }
 

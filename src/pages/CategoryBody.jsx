@@ -66,7 +66,7 @@ function CategoryBody() {
 
     return (
 		<div className="App">
-			<StickyNavbar/>
+			{/* <StickyNavbar/> */}
 			<div className="content">
 				<h1>
 					Название темы {id}

@@ -22,10 +22,10 @@ export const userService = {
 
 async function getAll() {
     const response = await fetch(
-        'http://localhost:5071/api/Users',
+        'http://localhost:33998/api/Users',
         {
             method: 'GET',
-            headers: authHeader('http://localhost:5071/api/Users')
+            headers: authHeader('http://localhost:33998/api/Users')
         }
     ).then(handleResponse)
     return response;
@@ -33,10 +33,10 @@ async function getAll() {
 
 async function getById(id) {
     const response = await fetch(
-        `http://localhost:5071/api/Users/${id}`,
+        `http://localhost:33998/api/Users/${id}`,
         {
             method: 'GET',
-            headers: authHeader(`http://localhost:5071/api/Users/${id}`)
+            headers: authHeader(`http://localhost:33998/api/Users/${id}`)
         }
     ).then(handleResponse)
     return response;
@@ -44,10 +44,10 @@ async function getById(id) {
 
 async function create(body) {
     const response = await fetch(
-        `http://localhost:5071/api/Users`,
+        `http://localhost:33998/api/Users`,
         {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...authHeader(`http://localhost:5071/api/Users`) },
+            headers: { 'Content-Type': 'application/json', ...authHeader(`http://localhost:33998/api/Users`) },
             credentials: 'include',
             body: JSON.stringify(body)
         }
@@ -57,10 +57,10 @@ async function create(body) {
 
 async function update(id, body) {
     const response = await fetch(
-        `http://localhost:5071/api/Users/${id}`,
+        `http://localhost:33998/api/Users/${id}`,
         {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json', ...authHeader(`http://localhost:5071/api/Users/${id}`) },
+            headers: { 'Content-Type': 'application/json', ...authHeader(`http://localhost:33998/api/Users/${id}`) },
             body: JSON.stringify(body)
         }
     ).then(handleResponse)
@@ -77,10 +77,10 @@ async function update(id, body) {
 
 async function _delete(id) {
     const response = await fetch(
-        `http://localhost:5071/api/Users/${id}`,
+        `http://localhost:33998/api/Users/${id}`,
         {
             method: 'DELETE',
-            headers: authHeader(`http://localhost:5071/api/Users/${id}`)
+            headers: authHeader(`http://localhost:33998/api/Users/${id}`)
         }
     ).then(handleResponse)
     return response.then(x => {
@@ -94,10 +94,10 @@ async function _delete(id) {
 
 async function register(body) {
     const response = await fetch(
-        `http://localhost:5071/api/Users/register`,
+        `http://localhost:33998/api/Users/register`,
         {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...authHeader(`http://localhost:5071/api/Users/register`) },
+            headers: { 'Content-Type': 'application/json', ...authHeader(`http://localhost:33998/api/Users/register`) },
             credentials: 'include',
             body: JSON.stringify(body),
             mode: 'cors'
@@ -108,10 +108,10 @@ async function register(body) {
 
 async function login(email, password) {
     return await fetch(
-        'http://localhost:5071/api/Users/authenticate',
+        'http://localhost:33998/api/Users/authenticate',
         {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...authHeader('http://localhost:5071/api/Users/authenticate') },
+            headers: { 'Content-Type': 'application/json', ...authHeader('http://localhost:33998/api/Users/authenticate') },
             credentials: 'include',
             body: JSON.stringify({ email, password })
         }
@@ -127,12 +127,13 @@ async function logout() {
     const token = Cookies.get("refreshToken");
     console.log(token)
     await fetch(
-        'http://localhost:5071/api/Users/revoke-token',
+        'http://localhost:33998/api/Users/revoke-token',
         {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...authHeader('http://localhost:5071/api/Users/revoke-token') },
+            headers: { 'Content-Type': 'application/json', ...authHeader('http://localhost:33998/api/Users/revoke-token') },
             credentials: 'include',
-            body: JSON.stringify({})
+            body: JSON.stringify({Token : null}),
+            mode: 'cors'
         }
     ).then(handleResponse)
     stopRefreshTokenTimer();
@@ -141,10 +142,10 @@ async function logout() {
 
 async function refreshToken() {
     const response = await fetch(
-        'http://localhost:5071/api/Users/refresh-token',
+        'http://localhost:33998/api/Users/refresh-token',
         {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...authHeader('http://localhost:5071/api/Users/refresh-token') },
+            headers: { 'Content-Type': 'application/json', ...authHeader('http://localhost:33998/api/Users/refresh-token') },
             credentials: 'include',
             body: JSON.stringify({})
         }
@@ -179,7 +180,7 @@ function authHeader(url) {
     // return auth header with jwt if user is logged in and request is to the api url
     const user = userService.userValue;
     const isLoggedIn = user && user.jwtToken;
-    const isApiUrl = url.startsWith('http://localhost:5071');
+    const isApiUrl = url.startsWith('http://localhost:33998');
     if (isLoggedIn && isApiUrl) {
         return { Authorization: `Bearer ${user.jwtToken}` };
     } else {

@@ -6,7 +6,7 @@ function Books() {
     const books = []
     return (
         <div className="App">
-            <StickyNavbar/>
+            {/* <StickyNavbar/> */}
             <BooksList books={books} />
         </div>
     )

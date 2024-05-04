@@ -1,7 +1,7 @@
 export default class TestService {
     static async getAll() {
         const response = await fetch(
-            'http://localhost:5071/api/Tests',
+            'http://localhost:33998/api/Tests',
             {
                 method: 'get'
             }
@@ -11,7 +11,7 @@ export default class TestService {
 
     static async getById(id) {
         const response = await fetch(
-            `http://localhost:5071/api/Tests/${id}`,
+            `http://localhost:33998/api/Tests/${id}`,
             {
                 method: 'get',
             }
@@ -21,7 +21,7 @@ export default class TestService {
 
     static async getByCategoryId(categoryId) {
         const response = await fetch(
-            `http://localhost:5071/api/Tests/GetByСategory/${categoryId}`,
+            `http://localhost:33998/api/Tests/GetByСategory/${categoryId}`,
             {
                 method: 'get',
             }

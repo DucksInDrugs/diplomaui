@@ -24,7 +24,7 @@ function Main() {
 
   return (
     <div className="App">
-      <StickyNavbar/>
+      {/* <StickyNavbar/> */}
       <div className='content'>
         {categoriesError &&
           <h1>Произошла ошибка ${categoriesError}</h1>
