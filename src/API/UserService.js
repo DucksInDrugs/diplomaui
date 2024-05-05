@@ -16,6 +16,7 @@ export const userService = {
     create,
     update,
     delete: _delete,
+    authHeader,
     user: userSubject.asObservable(),
     get userValue () { return userSubject.value }
 };
@@ -56,15 +57,14 @@ async function create(body) {
 }
 
 async function update(id, body) {
-    const response = await fetch(
-        `http://localhost:33998/api/Users/${id}`,
+    return await fetch(
+        `http://localhost:5071/api/Users/${id}`,
         {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', ...authHeader(`http://localhost:33998/api/Users/${id}`) },
             body: JSON.stringify(body)
         }
-    ).then(handleResponse)
-    return response.then(user => {
+    ).then(handleResponse).then(user => {
         // update stored user if the logged in user updated their own record
         if (user.id === userSubject.value.id) {
             // publish updated user to subscribers
@@ -76,14 +76,13 @@ async function update(id, body) {
 }
 
 async function _delete(id) {
-    const response = await fetch(
-        `http://localhost:33998/api/Users/${id}`,
+    return await fetch(
+        `http://localhost:5071/api/Users/${id}`,
         {
             method: 'DELETE',
-            headers: authHeader(`http://localhost:33998/api/Users/${id}`)
+            headers: authHeader(`http://localhost:5071/api/Users/${id}`)
         }
-    ).then(handleResponse)
-    return response.then(x => {
+    ).then(handleResponse).then(x => {
         // auto logout if the logged in user deleted their own record
         if (id === userSubject.value.id) {
             logout();

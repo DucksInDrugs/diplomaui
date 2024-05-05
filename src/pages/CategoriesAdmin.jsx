@@ -18,11 +18,13 @@ function CategoriesAdmin() {
   }, [])
 
     function deleteCategory(id) {
-        console.log('Удалил, но есть нюанс');
-        // setUsers(users.map(x => {
-        //     if (x.id === id) { x.isDeleting = true; }
-        //     return x;
-        // }));
+        setCategories(categories.map(x => {
+            if (x.id === id) { x.isDeleting = true; }
+            return x;
+        }));
+        CategoryService.delete(id).then(() => {
+            setCategories(categories => categories.filter(x => x.id !== id));
+        });
         // userService.delete(id).then(() => {
         //     setUsers(users => users.filter(x => x.id !== id));
         // });

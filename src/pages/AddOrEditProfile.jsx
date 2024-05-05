@@ -10,6 +10,7 @@ function AddOrEditProfile() {
     const { id } = useParams();
     const navigate = useNavigate();
     const isAddMode = !id;
+    let isFirstUpdate = true;
     
     const initialValues = {
         username: '',
@@ -31,16 +32,13 @@ function AddOrEditProfile() {
             .concat(isAddMode ? Yup.string().required('Password is required') : null)
             .min(6, 'Password must be at least 6 characters'),
         confirmPassword: Yup.string()
-            .when('password', (password, schema) => {
-                if (password) return schema.required('Confirm Password is required');
-            })
-            .oneOf([Yup.ref('password')], 'Passwords must match')
+            .oneOf([Yup.ref('password'), null], "Passwords don't match")
+            //.oneOf([Yup.ref('password')], 'Passwords must match')
     });
 
     function onSubmit(fields, { setStatus, setSubmitting }) {
         setStatus();
         if (isAddMode) {
-            console.log('Сохраняю');
             createUser(fields, setSubmitting);
         } else {
             updateUser(id, fields, setSubmitting);
@@ -63,7 +61,7 @@ function AddOrEditProfile() {
         userService.update(id, fields)
             .then(() => {
                 alertService.success('Update successful', { keepAfterRouteChange: true });
-                navigate('/users');
+                navigate("/users");
             })
             .catch(error => {
                 setSubmitting(false);
@@ -73,15 +71,19 @@ function AddOrEditProfile() {
 
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-            {({ errors, touched, isSubmitting, setFieldValue }) => (
+            {({ errors, touched, isSubmitting, setFieldValue }) => {
                 //useEffect(() => {
-                    // if (!isAddMode) {
-                    //     // get user and set form fields
-                    //     userService.getById(id).then(user => {
-                    //         const fields = ['username', 'email', 'role'];
-                    //         fields.forEach(field => setFieldValue(field, user[field], false));
-                    //     });
-                    // }
+                    if(isFirstUpdate){
+                        isFirstUpdate = false;
+                    if (!isAddMode) {
+                        // get user and set form fields
+                        userService.getById(id).then(user => {
+                            const fields = ['username', 'email', 'role'];
+                            fields.forEach(field => setFieldValue(field, user[field], false));
+                        });
+                    }
+                };
+                return (
                 //}, []);
 
                 <Form>
@@ -136,7 +138,8 @@ function AddOrEditProfile() {
                         <Link to='/users' className="btn btn-link">Cancel</Link>
                     </div>
                 </Form>
-            )}
+                );
+}}
         </Formik>
     )
 }
