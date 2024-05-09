@@ -42,6 +42,7 @@ function Register({history}) {
     }
 
     return (
+        <div className="content">
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
             {({ errors, touched, isSubmitting }) => (
                 <Form>
@@ -80,6 +81,7 @@ function Register({history}) {
                 </Form>
             )}
         </Formik>
+        </div>
     )
 }
 

@@ -2,37 +2,50 @@ import React from "react";
 import { userService } from "../API/UserService";
 import { Link } from "react-router-dom";
 import { Role } from "../helpers/role";
+import Menu from "../components/UI/menu/Menu";
 
 function Profile() {
     const user = userService.userValue;
+    const categories = user.role !== Role.Admin ? [
+        {
+            id: 1,
+            title: "Изменить профиль",
+            link: "/"
+        }
+    ] :
+    [
+        {
+            id: 1,
+            title: "Изменить профиль",
+            link: "/"
+        },
+        {
+            id: 2,
+            title: "Пользователи",
+            link: "/users"
+        },
+        {
+            id: 3,
+            title: "Изменить категории",
+            link: "/categories-admin"
+        },
+        {
+            id: 4,
+            title: "Изменить тесты",
+            link: "/tests-admin"
+        },
+    ]
 
     return (
-        <div>
+        <div className="content">
+            <Menu menuCategory="Profile" categories={categories}/>
+            <div style={{marginLeft: "300px"}}>
             <h1>My Profile</h1>
             <p>
-                <strong>Username: </strong> {user.Username}<br />
+                <strong>Username: </strong> {user.username}<br />
                 <strong>Email: </strong> {user.email}
             </p>
-            <p><Link to='/'>Update Profile</Link></p>
-            {user.role === Role.Admin &&
-            <ul>
-                <li>
-                    <Link to='/users'>
-                        Пользователи
-                    </Link>
-                </li>
-                <li>
-                    <Link to='/categories-admin'>
-                        Категории
-                    </Link>
-                </li>
-                <li>
-                    <Link to='/tests-admin'>
-                        Тесты
-                    </Link>
-                </li>
-            </ul>
-            }
+            </div>
         </div>
     );
 }

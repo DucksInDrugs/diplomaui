@@ -70,6 +70,7 @@ function AddOrEditProfile() {
     }
 
     return (
+        <div className="content">
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
             {({ errors, touched, isSubmitting, setFieldValue }) => {
                 //useEffect(() => {
@@ -135,12 +136,14 @@ function AddOrEditProfile() {
                             {isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
                             Save
                         </button>
+                        <Link to={`/profile`} className="btn btn-secondary mr-1">Меню</Link>
                         <Link to='/users' className="btn btn-link">Cancel</Link>
                     </div>
                 </Form>
                 );
 }}
         </Formik>
+        </div>
     )
 }
 

@@ -1,10 +1,9 @@
-/*#root {
+#root {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
-.App {
+/*.App {
   text-align: center;
 }
 
@@ -71,6 +70,7 @@ max-width: 1154px;
 
 .content {
   max-width: 1154px;
+  width: 75%;
   margin-left: auto;
   margin-right: auto;
   background: whitesmoke;
@@ -157,13 +157,13 @@ max-width: 1154px;
   width: 100%;
   font-size: 16px;
   color: #ffffff;
-  background-color: #252d4a;
+  background-color: #A1D6E2;
   border-radius: 15px;
   display: flex;
   padding: 5px;
   justify-content: flex-start;
   align-items: center;
-  border: 5px solid #234668;
+  border: 5px solid #1995AD;
   cursor: pointer;
 }
 
@@ -177,13 +177,12 @@ max-width: 1154px;
 
 .questions {
   margin-left: 300px;
-  background-color: #252d4a;
-  width: 450px;
+  background-color: #F1F1F2;
+  width: 100%;
   min-height: 200px;
-  height: min-content;
+  height: 400px;
   border-radius: 15px;
   padding: 20px;
-  box-shadow: 10px 10px 42px 0px rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: space-evenly;
 }

@@ -36,7 +36,7 @@ function Login({ history, location }) {
     }
 
     return (
-        <div className="App">
+        <div className="content">
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
             {({ errors, touched, isSubmitting }) => (
                 <Form>

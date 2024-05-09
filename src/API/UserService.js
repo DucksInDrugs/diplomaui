@@ -58,7 +58,7 @@ async function create(body) {
 
 async function update(id, body) {
     return await fetch(
-        `http://localhost:5071/api/Users/${id}`,
+        `http://localhost:33998/api/Users/${id}`,
         {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', ...authHeader(`http://localhost:33998/api/Users/${id}`) },
@@ -77,10 +77,10 @@ async function update(id, body) {
 
 async function _delete(id) {
     return await fetch(
-        `http://localhost:5071/api/Users/${id}`,
+        `http://localhost:33998/api/Users/${id}`,
         {
             method: 'DELETE',
-            headers: authHeader(`http://localhost:5071/api/Users/${id}`)
+            headers: authHeader(`http://localhost:33998/api/Users/${id}`)
         }
     ).then(handleResponse).then(x => {
         // auto logout if the logged in user deleted their own record

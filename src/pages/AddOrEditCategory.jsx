@@ -30,7 +30,7 @@ function AddOrEditCategory() {
         if (isAddMode) {
             createCategory(fields, setSubmitting);
         } else {
-            updatCategory(id, fields, setSubmitting);
+            updateCategory(id, fields, setSubmitting);
         }
     }
 
@@ -46,7 +46,7 @@ function AddOrEditCategory() {
             });
     }
 
-    function updatCategory(id, fields, setSubmitting) {
+    function updateCategory(id, fields, setSubmitting) {
         CategoryService.update(id, fields)
             .then(() => {
                 alertService.success('Update successful', { keepAfterRouteChange: true });
@@ -59,6 +59,7 @@ function AddOrEditCategory() {
     }
 
     return (
+        <div className="content">
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
             {({ errors, touched, isSubmitting, setFieldValue }) => {
                 //useEffect(() => {
@@ -68,7 +69,6 @@ function AddOrEditCategory() {
                         // get user and set form fields
                         CategoryService.getById(id).then(category => {
                             const fields = ['title', 'photoUrl'];
-                            console.log(category)
                             fields.forEach(field => setFieldValue(field, category[field], false));
                         });
                     }
@@ -97,12 +97,14 @@ function AddOrEditCategory() {
                             {isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
                             Save
                         </button>
+                        <Link to={`/profile`} className="btn btn-secondary mr-1">Меню</Link>
                         <Link to='/categories-admin' className="btn btn-link">Cancel</Link>
                     </div>
                 </Form>
                 );
 }}
         </Formik>
+        </div>
     );
 }
 

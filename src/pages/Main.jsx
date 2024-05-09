@@ -23,8 +23,6 @@ function Main() {
   }, [])
 
   return (
-    <div className="App">
-      {/* <StickyNavbar/> */}
       <div className='content'>
         {categoriesError &&
           <h1>Произошла ошибка ${categoriesError}</h1>
@@ -42,7 +40,6 @@ function Main() {
           <span className='links-to-list'>Смотреть все книги</span>
         </Link>
       </div>
-    </div>
   );
 }
 

@@ -31,10 +31,11 @@ function CategoriesAdmin() {
     }
 
     return (
-        <div>
+        <div className="content">
             <h1>Categories</h1>
             <p>All categories from secure (admin only) api end point:</p>
             <Link to='/category-add' className="btn btn-sm btn-success mb-2">Add Category</Link>
+            <Link to={`/profile`} className="btn btn-sm btn-secondary mb-2">Меню</Link>
             <table className="table table-striped">
                 <thead>
                     <tr>

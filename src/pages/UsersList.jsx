@@ -21,10 +21,11 @@ function UsersList() {
     }
 
     return (
-        <div>
+        <div className="content">
             <h1>Users</h1>
             <p>All users from secure (admin only) api end point:</p>
             <Link to='/user-add' className="btn btn-sm btn-success mb-2">Add User</Link>
+            <Link to={`/profile`} className="btn btn-sm btn-secondary mb-2">Меню</Link>
             <table className="table table-striped">
                 <thead>
                     <tr>
