@@ -7,8 +7,8 @@
 	padding-left: 15%;
     padding-right: 15%;
     float: left;
-	height: 90px;
-	background-color: lightgray;
+	height: 100px;
+	background: linear-gradient(90deg, rgba(190,215,220,1) 0%, rgba(241,238,220,1) 50%, rgba(229,221,197,1) 100%);
 	align-items: center;
     margin-bottom: 38px;
 	z-index: 1;
@@ -20,4 +20,9 @@
     height: 18px;
 	margin-right: 3px;
 	color: #1c35e7;
+}
+
+.profilelink a {
+	display: inline-block;
+  	padding: 5px;
 }

@@ -25,22 +25,18 @@ function CategoriesAdmin() {
         CategoryService.delete(id).then(() => {
             setCategories(categories => categories.filter(x => x.id !== id));
         });
-        // userService.delete(id).then(() => {
-        //     setUsers(users => users.filter(x => x.id !== id));
-        // });
     }
 
     return (
         <div className="content">
-            <h1>Categories</h1>
-            <p>All categories from secure (admin only) api end point:</p>
-            <Link to='/category-add' className="btn btn-sm btn-success mb-2">Add Category</Link>
+            <h1>Категории</h1>
+            <Link to='/category-add' className="btn btn-sm btn-success mb-2">Создать</Link>
             <Link to={`/profile`} className="btn btn-sm btn-secondary mb-2">Меню</Link>
             <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th style={{ width: '45%' }}>Title</th>
-                        <th style={{ width: '45%' }}>PhoroURL</th>
+                        <th style={{ width: '45%' }}>Название категории</th>
+                        <th style={{ width: '45%' }}>Ссылка на фото</th>
                         <th style={{ width: '10%' }}></th>
                     </tr>
                 </thead>
@@ -48,13 +44,13 @@ function CategoriesAdmin() {
                     {categories && categories.map(category =>
                         <tr key={category.id}>
                             <td>{category.title}</td>
-                            <td>{category.photourl}</td>
+                            <td>{category.photoUrl}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
-                                <Link to={`/category-edit/${category.id}`} className="btn btn-sm btn-primary mr-1">Edit</Link>
-                                <button onClick={() => deleteCategory(category.id)} className="btn btn-sm btn-danger" style={{ width: '60px' }} disabled={category.isDeleting}>
+                                <Link to={`/category-edit/${category.id}`} className="btn btn-sm btn-primary mr-1">Изменить</Link>
+                                <button onClick={() => deleteCategory(category.id)} className="btn btn-sm btn-danger" style={{ width: '65px' }} disabled={category.isDeleting}>
                                     {category.isDeleting 
                                         ? <span className="spinner-border spinner-border-sm"></span>
-                                        : <span>Delete</span>
+                                        : <span>Удалить</span>
                                     }
                                 </button>
                             </td>

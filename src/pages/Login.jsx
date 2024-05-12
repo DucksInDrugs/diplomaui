@@ -18,9 +18,9 @@ function Login({ history, location }) {
 
     const validationSchema = Yup.object().shape({
         email: Yup.string()
-            .email('Email is invalid')
-            .required('Email is required'),
-        password: Yup.string().required('Password is required')
+            .email('Email невалиден')
+            .required('Email - обязательное поле'),
+        password: Yup.string().required('Пароль - обязательное поле')
     });
 
     function onSubmit({ email, password }, { setSubmitting }) {
@@ -40,7 +40,7 @@ function Login({ history, location }) {
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
             {({ errors, touched, isSubmitting }) => (
                 <Form>
-                    <h3 className="card-header">Login</h3>
+                    <h3 className="card-header">Войти</h3>
                     <div className="card-body">
                         <div className="form-group">
                             <label>Email</label>
@@ -48,7 +48,7 @@ function Login({ history, location }) {
                             <ErrorMessage name="email" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
-                            <label>Password</label>
+                            <label>Пароль</label>
                             <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
                             <ErrorMessage name="password" component="div" className="invalid-feedback" />
                         </div>
@@ -56,9 +56,9 @@ function Login({ history, location }) {
                             <div className="form-group col">
                                 <button type="submit" disabled={isSubmitting} className="btn btn-primary">
                                     {isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                                    Login
+                                    Войти
                                 </button>
-                                <Link to="/register" className="btn btn-link">Register</Link>
+                                <Link to="/register" className="btn btn-link">Регистрация</Link>
                             </div>
                         </div>
                     </div>

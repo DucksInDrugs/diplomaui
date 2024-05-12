@@ -39,21 +39,21 @@ function AddOrEditTest() {
 
     const validationSchema = Yup.object().shape({
         categoryId: Yup.string()
-            .required('category is required'),
+            .required('Тема - обязательное поле'),
         question: Yup.string()
-            .required('Question is required'),
+            .required('Вопрос - обязательное поле'),
         testName: Yup.string()
-            .required('Title is required'),
+            .required('Название - обязательное поле'),
         testBody: Yup.array()
         .of(
             Yup.object().shape({
                 answerText: Yup.string()
-                .required('Answer is required'),
+                .required('Ответ обязателен'),
                 isCorrect: Yup.boolean(),
             })
         )
         .test('only-one-true',
-        'Only one boolean value should be true',
+        'Только один ответ верен',
         array => {
           const trueCount = array.filter(obj => obj.isCorrect === true).length;
           return trueCount === 1;
@@ -72,7 +72,7 @@ function AddOrEditTest() {
     function createTest(fields, setSubmitting) {
         TestService.create(fields)
             .then(() => {
-                alertService.success('Test added successfully', { keepAfterRouteChange: true });
+                alertService.success('Тест успешно добавлен', { keepAfterRouteChange: true });
                 navigate('/tests-admin');
             })
             .catch(error => {
@@ -84,7 +84,7 @@ function AddOrEditTest() {
     function updateTest(id, fields, setSubmitting) {
         TestService.update(id, fields)
             .then(() => {
-                alertService.success('Update successful', { keepAfterRouteChange: true });
+                alertService.success('Изменение успешно', { keepAfterRouteChange: true });
                 navigate("/tests-admin");
             })
             .catch(error => {
@@ -111,10 +111,10 @@ function AddOrEditTest() {
             };
             return (
                 <Form>
-                    <h1>{isAddMode ? 'Add Test question' : 'Edit Test question'}</h1>
+                    <h1>{isAddMode ? 'Добавить вопрос для теста' : 'Изменить вопрос для теста'}</h1>
                     <div className="form-row">
                         <div className="form-group col-3">
-                            <label>Category</label>
+                            <label>Название темы</label>
                             <Field name="categoryId" as="select" className={'form-control' + (errors.categoryId && touched.categoryId ? ' is-invalid' : '')}>
                                 <option value=""></option>
                                 {categories && categories.map(category =>
@@ -124,12 +124,12 @@ function AddOrEditTest() {
                             <ErrorMessage name="categoryId" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group col-9">
-                            <label>question</label>
+                            <label>Вопрос</label>
                             <Field name="question" type="text" className={'form-control' + (errors.question && touched.question ? ' is-invalid' : '')} />
                             <ErrorMessage name="question" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group col">
-                            <label>testName</label>
+                            <label>Название теста</label>
                             <Field name="testName" type="text" className={'form-control' + (errors.testName && touched.testName ? ' is-invalid' : '')} />
                             <ErrorMessage name="testName" component="div" className="invalid-feedback" />
                         </div>
@@ -142,12 +142,12 @@ function AddOrEditTest() {
                                 <>
                             <div className="form-row" key={index}>
                                 <div className="form-group col-11">
-                                    <label htmlFor={`testBody.${index}.answerText`}>answerText</label>
+                                    <label htmlFor={`testBody.${index}.answerText`}>Ответ на вопрос</label>
                                     <Field name={`testBody.${index}.answerText`} type="text" className={'form-control' + (errors.answerText && touched.answerText ? ' is-invalid' : '')} />
                                     <ErrorMessage name={`testBody.${index}.answerText`} component="div" className="invalid-feedback" />
                                 </div>
                                 <div className="form-group col-1">
-                                    <label htmlFor={`testBody.${index}.isCorrect`}>isCorrect</label>
+                                    <label htmlFor={`testBody.${index}.isCorrect`}>Правильный ответ</label>
                                     <Field name={`testBody.${index}.isCorrect`} type="checkbox"  className={'form-control' + (errors.isCorrect && touched.isCorrect ? ' is-invalid' : '')} />
                                     <ErrorMessage name={`testBody.${index}.isCorrect`} component="div" className="invalid-feedback" />
                                 </div>
@@ -167,10 +167,10 @@ function AddOrEditTest() {
                     <div className="form-group">
                         <button type="submit" disabled={isSubmitting} className="btn btn-primary">
                             {isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                            Save
+                            Сохранить
                         </button>
                         <Link to={`/profile`} className="btn btn-secondary mr-1">Меню</Link>
-                        <Link to='/tests-admin' className="btn btn-link">Cancel</Link>
+                        <Link to='/tests-admin' className="btn btn-link">Отменить</Link>
                     </div>
                 </Form>
     );

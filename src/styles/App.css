@@ -1,6 +1,8 @@
 #root {
   display: flex;
   flex-direction: column;
+  background: radial-gradient(circle, rgba(244,238,255,1) 30%, rgba(179,200,207,1) 80%);
+  min-height: 977px
 }
 
 /*.App {
@@ -73,7 +75,7 @@ max-width: 1154px;
   width: 75%;
   margin-left: auto;
   margin-right: auto;
-  background: whitesmoke;
+  background: linear-gradient(90deg, rgba(241,238,220,1) 0%, rgba(242,234,211,1) 50%, rgba(229,221,197,1) 100%);
 }
 
 .cards {
@@ -156,14 +158,14 @@ max-width: 1154px;
 .question-button {
   width: 100%;
   font-size: 16px;
-  color: #ffffff;
-  background-color: #A1D6E2;
+  color: #000;
+  background-color: #E5DDC5;
   border-radius: 15px;
   display: flex;
   padding: 5px;
   justify-content: flex-start;
   align-items: center;
-  border: 5px solid #1995AD;
+  border: 5px solid #E5DDC5;
   cursor: pointer;
 }
 
@@ -177,7 +179,7 @@ max-width: 1154px;
 
 .questions {
   margin-left: 300px;
-  background-color: #F1F1F2;
+  background-color: #F1EEDC;
   width: 100%;
   min-height: 200px;
   height: 400px;
@@ -353,4 +355,14 @@ a {
   justify-content: center;
   font-size: 24px;
   margin: 10px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.gif {
+  width: 90px;
+  height: 90px;
+  margin-right: 3px;
 }

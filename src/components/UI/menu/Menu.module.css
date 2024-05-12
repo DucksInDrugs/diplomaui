@@ -1,8 +1,8 @@
 .sidenav{
   position: fixed;
   width: 280px;
-  height: 100%;
-  background-color: #1E2027;
+  height: 40.9%;
+  background: linear-gradient(90deg, rgba(245,245,245,1) 0%, rgba(223,215,191,1) 22%, rgba(63,35,5,1) 100%);
 
   .main_buttons{
     list-style-type: none;

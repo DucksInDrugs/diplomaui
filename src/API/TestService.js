@@ -3,7 +3,7 @@ import { userService } from "./UserService";
 export default class TestService {
     static async getAll() {
         const response = await fetch(
-            'http://localhost:33998/api/Tests',
+            'http://localhost:5071/api/Tests',
             {
                 method: 'get'
             }
@@ -13,7 +13,7 @@ export default class TestService {
 
     static async getById(id) {
         const response = await fetch(
-            `http://localhost:33998/api/Tests/${id}`,
+            `http://localhost:5071/api/Tests/${id}`,
             {
                 method: 'get',
             }
@@ -23,7 +23,7 @@ export default class TestService {
 
     static async getByCategoryId(categoryId) {
         const response = await fetch(
-            `http://localhost:33998/api/Tests/GetByСategory/${categoryId}`,
+            `http://localhost:5071/api/Tests/GetByСategory/${categoryId}`,
             {
                 method: 'get',
             }
@@ -33,10 +33,10 @@ export default class TestService {
 
     static async create(body) {
         const response = await fetch(
-            'http://localhost:33998/api/Tests/',
+            'http://localhost:5071/api/Tests/',
             {
                 method: 'post',
-                headers: { 'Content-Type': 'application/json', ...userService.authHeader(`http://localhost:33998/api/Tests/`) },
+                headers: { 'Content-Type': 'application/json', ...userService.authHeader(`http://localhost:5071/api/Tests/`) },
                 credentials: 'include',
                 body: JSON.stringify(body)
             }
@@ -46,10 +46,10 @@ export default class TestService {
 
     static async update(id, body) {
         const response = await fetch(
-            `http://localhost:33998/api/Tests/${id}`,
+            `http://localhost:5071/api/Tests/${id}`,
             {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json', ...userService.authHeader(`http://localhost:33998/api/Tests/${id}`) },
+                headers: { 'Content-Type': 'application/json', ...userService.authHeader(`http://localhost:5071/api/Tests/${id}`) },
                 body: JSON.stringify(body)
             }
         )
@@ -58,10 +58,10 @@ export default class TestService {
 
     static async delete(id) {
         const response = await fetch(
-            `http://localhost:33998/api/Tests/${id}`,
+            `http://localhost:5071/api/Tests/${id}`,
             {
                 method: 'DELETE',
-                headers: userService.authHeader(`http://localhost:33998/api/Tests/${id}`)
+                headers: userService.authHeader(`http://localhost:5071/api/Tests/${id}`)
             }
         )
         return response.json();

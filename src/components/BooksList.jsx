@@ -3,7 +3,6 @@ import BookItem from "./BookItem";
 
 const BooksList = ({books}) => {
     return (
-        <div className="content">
             <div className="wrap">
                 {books.map((book) =>
                     <BookItem props={book} key={book.id}/>
@@ -11,7 +10,6 @@ const BooksList = ({books}) => {
                 <BookItem/>
                 <BookItem/>
             </div>
-        </div>
     )
 }
 

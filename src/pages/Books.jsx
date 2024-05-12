@@ -5,7 +5,7 @@ import BooksList from "../components/BooksList";
 function Books() {
     const books = []
     return (
-        <div className="App">
+        <div className="content">
             {/* <StickyNavbar/> */}
             <BooksList books={books} />
         </div>

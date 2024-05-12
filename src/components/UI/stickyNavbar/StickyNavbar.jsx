@@ -10,6 +10,11 @@ import classes from './StickyNavbar.module.css'
 import SearchInput from '../searchInput/SearchInput';
 import { userService } from '../../../API/UserService';
 import { useState, useEffect } from 'react';
+import up from "../../../gif/up.gif";
+import many from "../../../gif/many.gif";
+import book from "../../../gif/book.gif";
+import theme from "../../../gif/theme.gif";
+import quit from "../../../gif/logout.gif";
 
 const StickyNavbar = () => {
     const [user, setUser] = useState({});
@@ -24,31 +29,45 @@ const StickyNavbar = () => {
         <nav className={classes.styckynav}>
             <NavLink to="/">
                 <img src={home} className={classes.images}></img>
-                На главную
+                {!user || user.progress <= 0.95 ? <span>На главную</span> : <img className='gif' src={up}></img>}
+                
             </NavLink>
             <NavLink to="/categories">
                 <img src={categories} className={classes.images}></img>
-                Категории
+                {!user || user.progress <= 0.25 ? <span>Темы</span> 
+                : <>
+                    <img className='gif' src={many}></img>
+                    <img className='gif' src={theme}></img>
+                </>}
             </NavLink>
             <NavLink to="/books">
                 <img src={books} className={classes.images}></img>
-                Книги
+                {!user || user.progress <= 0.5 ? <span>Книги</span> 
+                : <>
+                    <img className='gif' src={many}></img>
+                    <img className='gif' src={book}></img>
+                </>}
             </NavLink>
             <NavLink to="#">   
                 <img src={videos} className={classes.images}></img>
                 Видео
             </NavLink>
-            <SearchInput/>
-            { user &&
-            <>
+            {/* <SearchInput/> */}
+            { user ?
+            <div className={classes.profilelink}>
             <NavLink to='/profile'>
                 <img src={profile} className={classes.images}></img>
+                {user.username}
             </NavLink>
             <NavLink onClick={userService.logout}>
                 <img src={logout} className={classes.images}></img>
-                Выход
+                {user.progress <= 0.25 ? <span>Выход</span> : <img className='gif' src={quit}></img>}
             </NavLink>
-            </>}
+            </div> 
+            : 
+            <NavLink to='/login'>
+                <img src={profile} className={classes.images}></img>
+            </NavLink>}
         </nav>
     )
 }

@@ -1,7 +1,9 @@
-export default class VideoService {
+import { userService } from "./UserService";
+
+export default class CompletedTasksService {
     static async getAll() {
         const response = await fetch(
-            'http://localhost:5071/api/Video',
+            'http://localhost:5071/api/CompletedTasks',
             {
                 method: 'get'
             }
@@ -9,19 +11,9 @@ export default class VideoService {
         return response.json();
     }
 
-    static async getById(id) {
+    static async getByIds(userId, categoryId) {
         const response = await fetch(
-            `http://localhost:5071/api/Video/${id}`,
-            {
-                method: 'get',
-            }
-        )
-        return response.json();
-    }
-
-    static async getByCategoryId(categoryId) {
-        const response = await fetch(
-            `http://localhost:5071/api/Video/GetByСategory/${categoryId}`,
+            `http://localhost:5071/api/CompletedTasks/TasksByIds/${userId}/${categoryId}`,
             {
                 method: 'get',
             }
@@ -31,7 +23,7 @@ export default class VideoService {
 
     static async create(body) {
         const response = await fetch(
-            'http://localhost:5071/api/Video',
+            'http://localhost:5071/api/CompletedTasks/',
             {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
@@ -42,13 +34,11 @@ export default class VideoService {
         return response.json();
     }
 
-    static async update(id, body) {
+    static async delete(userId) {
         const response = await fetch(
-            `http://localhost:5071/api/Video/${id}`,
+            `http://localhost:5071/api/CompletedTasks/${userId}`,
             {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
+                method: 'DELETE'
             }
         )
         return response.json();

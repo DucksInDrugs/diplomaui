@@ -28,29 +28,28 @@ function TestsAdmin() {
 
     return (
         <div className="content">
-            <h1>Tests</h1>
-            <p>All tests from secure (admin only) api end point:</p>
-            <Link to='/test-add' className="btn btn-sm btn-success mb-2">Add Test</Link>
+            <h1>Тесты</h1>
+            <Link to='/test-add' className="btn btn-sm btn-success mb-2">Добавить тест</Link>
             <Link to={`/profile`} className="btn btn-sm btn-secondary mb-2">Меню</Link>
             <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th style={{ width: '45%' }}>Question</th>
-                        <th style={{ width: '45%' }}>Title</th>
+                        <th style={{ width: '45%' }}>Название теста</th>
+                        <th style={{ width: '45%' }}>Вопрос</th>
                         <th style={{ width: '10%' }}></th>
                     </tr>
                 </thead>
                 <tbody>
                     {tests && tests.map(test =>
                         <tr key={test.id}>
-                            <td>{test.question}</td>
                             <td>{test.testName}</td>
+                            <td>{test.question}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
-                                <Link to={`/test-edit/${test.id}`} className="btn btn-sm btn-primary mr-1">Edit</Link>
-                                <button onClick={() => deleteTest(test.id)} className="btn btn-sm btn-danger" style={{ width: '60px' }} disabled={test.isDeleting}>
+                                <Link to={`/test-edit/${test.id}`} className="btn btn-sm btn-primary mr-1">Изменить</Link>
+                                <button onClick={() => deleteTest(test.id)} className="btn btn-sm btn-danger" style={{ width: '65px' }} disabled={test.isDeleting}>
                                     {test.isDeleting 
                                         ? <span className="spinner-border spinner-border-sm"></span>
-                                        : <span>Delete</span>
+                                        : <span>Удалить</span>
                                     }
                                 </button>
                             </td>

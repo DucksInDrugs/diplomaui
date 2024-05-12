@@ -16,13 +16,16 @@ function AddOrEditCategory() {
     const initialValues = {
         title: '',
         photoUrl: '',
+        role: '',
     };
 
     const validationSchema = Yup.object().shape({
         title: Yup.string()
-            .required('Title is required'),
+            .required('Название темы - обязательное поле'),
         photoUrl: Yup.string()
-            .required('PhotoURL is required'),
+            .required('Ссылка на фото - обязательное поле'),
+        role: Yup.string()
+            .required('Роль - обязательное поле'),
     });
 
     function onSubmit(fields, { setStatus, setSubmitting }) {
@@ -37,7 +40,7 @@ function AddOrEditCategory() {
     function createCategory(fields, setSubmitting) {
         CategoryService.create(fields)
             .then(() => {
-                alertService.success('Category added successfully', { keepAfterRouteChange: true });
+                alertService.success('Тема успешно добавлена', { keepAfterRouteChange: true });
                 navigate('/categories-admin');
             })
             .catch(error => {
@@ -49,7 +52,7 @@ function AddOrEditCategory() {
     function updateCategory(id, fields, setSubmitting) {
         CategoryService.update(id, fields)
             .then(() => {
-                alertService.success('Update successful', { keepAfterRouteChange: true });
+                alertService.success('Изменение успешно', { keepAfterRouteChange: true });
                 navigate("/categories-admin");
             })
             .catch(error => {
@@ -68,7 +71,7 @@ function AddOrEditCategory() {
                     if (!isAddMode) {
                         // get user and set form fields
                         CategoryService.getById(id).then(category => {
-                            const fields = ['title', 'photoUrl'];
+                            const fields = ['title', 'photoUrl', 'role'];
                             fields.forEach(field => setFieldValue(field, category[field], false));
                         });
                     }
@@ -77,28 +80,38 @@ function AddOrEditCategory() {
                 //}, []);
 
                 <Form>
-                    <h1>{isAddMode ? 'Add Category' : 'Edit Category'}</h1>
+                    <h1>{isAddMode ? 'Добавить тему' : 'Изменить тему'}</h1>
                     <div className="form-row">
-                        <div className="form-group col-7">
-                            <label>Title</label>
+                        <div className="form-group col">
+                            <label>Название темы</label>
                             <Field name="title" type="text" className={'form-control' + (errors.title && touched.title ? ' is-invalid' : '')} />
                             <ErrorMessage name="title" component="div" className="invalid-feedback" />
                         </div>
                     </div>
                     <div className="form-row">
-                        <div className="form-group col-7">
-                            <label>PhotoURL</label>
+                        <div className="form-group col">
+                            <label>Ссылка на фото</label>
                             <Field name="photoUrl" type="text" className={'form-control' + (errors.photoUrl && touched.photoUrl ? ' is-invalid' : '')} />
                             <ErrorMessage name="photoUrl" component="div" className="invalid-feedback" />
+                        </div>
+                        <div className="form-group col">
+                            <label>Для кого создана тема</label>
+                            <Field name="role" as="select" className={'form-control' + (errors.role && touched.role ? ' is-invalid' : '')}>
+                                <option value=""></option>
+                                <option value="User">Пользователь</option>
+                                <option value="Admin">Админ</option>
+                                <option value="SpecialUser">Специальный пользователь</option>
+                            </Field>
+                            <ErrorMessage name="role" component="div" className="invalid-feedback" />
                         </div>
                     </div>
                     <div className="form-group">
                         <button type="submit" disabled={isSubmitting} className="btn btn-primary">
                             {isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                            Save
+                            Сохранить
                         </button>
                         <Link to={`/profile`} className="btn btn-secondary mr-1">Меню</Link>
-                        <Link to='/categories-admin' className="btn btn-link">Cancel</Link>
+                        <Link to='/categories-admin' className="btn btn-link">Отменить</Link>
                     </div>
                 </Form>
                 );

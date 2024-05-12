@@ -17,16 +17,36 @@ export const userService = {
     update,
     delete: _delete,
     authHeader,
+    updateProgress,
     user: userSubject.asObservable(),
     get userValue () { return userSubject.value }
 };
 
+async function updateProgress(id, body) {
+    return await fetch(
+        `http://localhost:5071/api/Users/UpdateProgress/${id}`,
+        {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', ...authHeader(`http://localhost:5071/api/Users/${id}`) },
+            body: JSON.stringify(body)
+        }
+    ).then(handleResponse).then(user => {
+        // update stored user if the logged in user updated their own record
+        if (user.id === userSubject.value.id) {
+            // publish updated user to subscribers
+            user = { ...userSubject.value, ...user };
+            userSubject.next(user);
+        }
+        return user;
+    }); 
+}
+
 async function getAll() {
     const response = await fetch(
-        'http://localhost:33998/api/Users',
+        'http://localhost:5071/api/Users',
         {
             method: 'GET',
-            headers: authHeader('http://localhost:33998/api/Users')
+            headers: authHeader('http://localhost:5071/api/Users')
         }
     ).then(handleResponse)
     return response;
@@ -34,10 +54,10 @@ async function getAll() {
 
 async function getById(id) {
     const response = await fetch(
-        `http://localhost:33998/api/Users/${id}`,
+        `http://localhost:5071/api/Users/${id}`,
         {
             method: 'GET',
-            headers: authHeader(`http://localhost:33998/api/Users/${id}`)
+            headers: authHeader(`http://localhost:5071/api/Users/${id}`)
         }
     ).then(handleResponse)
     return response;
@@ -45,10 +65,10 @@ async function getById(id) {
 
 async function create(body) {
     const response = await fetch(
-        `http://localhost:33998/api/Users`,
+        `http://localhost:5071/api/Users`,
         {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...authHeader(`http://localhost:33998/api/Users`) },
+            headers: { 'Content-Type': 'application/json', ...authHeader(`http://localhost:5071/api/Users`) },
             credentials: 'include',
             body: JSON.stringify(body)
         }
@@ -58,10 +78,10 @@ async function create(body) {
 
 async function update(id, body) {
     return await fetch(
-        `http://localhost:33998/api/Users/${id}`,
+        `http://localhost:5071/api/Users/${id}`,
         {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json', ...authHeader(`http://localhost:33998/api/Users/${id}`) },
+            headers: { 'Content-Type': 'application/json', ...authHeader(`http://localhost:5071/api/Users/${id}`) },
             body: JSON.stringify(body)
         }
     ).then(handleResponse).then(user => {
@@ -77,10 +97,10 @@ async function update(id, body) {
 
 async function _delete(id) {
     return await fetch(
-        `http://localhost:33998/api/Users/${id}`,
+        `http://localhost:5071/api/Users/${id}`,
         {
             method: 'DELETE',
-            headers: authHeader(`http://localhost:33998/api/Users/${id}`)
+            headers: authHeader(`http://localhost:5071/api/Users/${id}`)
         }
     ).then(handleResponse).then(x => {
         // auto logout if the logged in user deleted their own record
@@ -93,10 +113,10 @@ async function _delete(id) {
 
 async function register(body) {
     const response = await fetch(
-        `http://localhost:33998/api/Users/register`,
+        `http://localhost:5071/api/Users/register`,
         {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...authHeader(`http://localhost:33998/api/Users/register`) },
+            headers: { 'Content-Type': 'application/json', ...authHeader(`http://localhost:5071/api/Users/register`) },
             credentials: 'include',
             body: JSON.stringify(body),
             mode: 'cors'
@@ -107,10 +127,10 @@ async function register(body) {
 
 async function login(email, password) {
     return await fetch(
-        'http://localhost:33998/api/Users/authenticate',
+        'http://localhost:5071/api/Users/authenticate',
         {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...authHeader('http://localhost:33998/api/Users/authenticate') },
+            headers: { 'Content-Type': 'application/json', ...authHeader('http://localhost:5071/api/Users/authenticate') },
             credentials: 'include',
             body: JSON.stringify({ email, password })
         }
@@ -126,10 +146,10 @@ async function logout() {
     const token = Cookies.get("refreshToken");
     console.log(token)
     await fetch(
-        'http://localhost:33998/api/Users/revoke-token',
+        'http://localhost:5071/api/Users/revoke-token',
         {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...authHeader('http://localhost:33998/api/Users/revoke-token') },
+            headers: { 'Content-Type': 'application/json', ...authHeader('http://localhost:5071/api/Users/revoke-token') },
             credentials: 'include',
             body: JSON.stringify({Token : null}),
             mode: 'cors'
@@ -140,16 +160,15 @@ async function logout() {
 }
 
 async function refreshToken() {
-    const response = await fetch(
-        'http://localhost:33998/api/Users/refresh-token',
+    return await fetch(
+        'http://localhost:5071/api/Users/refresh-token',
         {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...authHeader('http://localhost:33998/api/Users/refresh-token') },
+            headers: { 'Content-Type': 'application/json', ...authHeader('http://localhost:5071/api/Users/refresh-token') },
             credentials: 'include',
             body: JSON.stringify({})
         }
-    ).then(handleResponse)
-    return response.then(user => {
+    ).then(handleResponse).then(user => {
         // publish user to subscribers and start timer to refresh token
         userSubject.next(user);
         startRefreshTokenTimer();
@@ -179,7 +198,7 @@ function authHeader(url) {
     // return auth header with jwt if user is logged in and request is to the api url
     const user = userService.userValue;
     const isLoggedIn = user && user.jwtToken;
-    const isApiUrl = url.startsWith('http://localhost:33998');
+    const isApiUrl = url.startsWith('http://localhost:5071');
     if (isLoggedIn && isApiUrl) {
         return { Authorization: `Bearer ${user.jwtToken}` };
     } else {

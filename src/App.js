@@ -24,6 +24,9 @@ import TestsAdmin from './pages/TestsAdmin';
 import CategoriesAdmin from './pages/CategoriesAdmin';
 import { userService } from './API/UserService'
 import { Role } from './helpers/role'
+import UpdateProfile from './pages/UpdateProfile';
+import VideosAdmin from './pages/VideosAdmin';
+import AddOrEditVideo from './pages/AddOrEditVideo';
 
 function App() {
   const [user, setUser] = useState({});
@@ -54,7 +57,8 @@ function App() {
 
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
-        <Route path='/profile' element={<Profile/>}/>
+        <Route path='/profile' element={<PrivateRoute roles={[Role.Admin, Role.User, Role.SpecialUser]} component={Profile}/>}/>
+        <Route path='/profile-update' element={<PrivateRoute roles={[Role.Admin, Role.User, Role.SpecialUser]} component={UpdateProfile}/>}/>
         <Route path='/users' element={<PrivateRoute roles={[Role.Admin]} component={UsersList}/>}/>
         <Route path='/user-add' element={<PrivateRoute roles={[Role.Admin]} component={AddOrEditProfile}/>}/>
         <Route path='/user-edit/:id' element={<PrivateRoute roles={[Role.Admin]} component={AddOrEditProfile}/>}/>
@@ -66,6 +70,10 @@ function App() {
         <Route path='/tests-admin' element={<PrivateRoute roles={[Role.Admin]} component={TestsAdmin}/>}/>
         <Route path='/test-add' element={<PrivateRoute roles={[Role.Admin]} component={AddOrEditTest}/>}/>
         <Route path='/test-edit/:id' element={<PrivateRoute roles={[Role.Admin]} component={AddOrEditTest}/>}/>
+
+        <Route path='/videos-admin' element={<PrivateRoute roles={[Role.Admin]} component={VideosAdmin}/>}/>
+        <Route path='/video-add' element={<PrivateRoute roles={[Role.Admin]} component={AddOrEditVideo}/>}/>
+        <Route path='/video-edit/:id' element={<PrivateRoute roles={[Role.Admin]} component={AddOrEditVideo}/>}/>
 
         <Route path='*' element={<Navigate to='/error' replace/>}/>
       </Routes>

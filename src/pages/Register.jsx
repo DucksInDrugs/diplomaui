@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -13,27 +13,28 @@ function Register({history}) {
         password: '',
         confirmPassword: '',
     };
+    const navigate = useNavigate()
 
     const validationSchema = Yup.object().shape({
         username: Yup.string()
-            .required('Title is required'),
+            .required('Имя пользователя - обязательное поле'),
         email: Yup.string()
-            .email('Email is invalid')
-            .required('Email is required'),
+            .email('Email невалиден')
+            .required('Email - обязательное поле'),
         password: Yup.string()
-            .min(6, 'Password must be at least 6 characters')
-            .required('Password is required'),
+            .min(6, 'Пароль должен состоять не менее чем из 6ти символов')
+            .required('Пароль - обязательное поле'),
         confirmPassword: Yup.string()
-            .oneOf([Yup.ref('password'), null], 'Passwords must match')
-            .required('Confirm Password is required'),
+            .oneOf([Yup.ref('password'), null], 'Пароли не совпадают')
+            .required('Подтвердите пароль'),
     });
 
     function onSubmit(fields, { setStatus, setSubmitting }) {
         setStatus();
         userService.register(fields)
             .then(() => {
-                alertService.success('Registration successful', { keepAfterRouteChange: true });
-                history.push('login');
+                alertService.success('Регистрация успешна', { keepAfterRouteChange: true });
+                navigate('/login');
             })
             .catch(error => {
                 setSubmitting(false);
@@ -46,10 +47,10 @@ function Register({history}) {
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
             {({ errors, touched, isSubmitting }) => (
                 <Form>
-                    <h3 className="card-header">Register</h3>
+                    <h3 className="card-header">Регистрация</h3>
                     <div className="card-body">
                         <div className="form-group">
-                            <label>Username</label>
+                            <label>Имя пользователя</label>
                             <Field name="username" type="text" className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')} />
                             <ErrorMessage name="username" component="div" className="invalid-feedback" />
                         </div>
@@ -60,12 +61,12 @@ function Register({history}) {
                         </div>
                         <div className="form-row">
                             <div className="form-group col">
-                                <label>Password</label>
+                                <label>Пароль</label>
                                 <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
                                 <ErrorMessage name="password" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-group col">
-                                <label>Confirm Password</label>
+                                <label>Подтвердите пароль</label>
                                 <Field name="confirmPassword" type="password" className={'form-control' + (errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : '')} />
                                 <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback" />
                             </div>
@@ -73,9 +74,9 @@ function Register({history}) {
                         <div className="form-group">
                             <button type="submit" disabled={isSubmitting} className="btn btn-primary">
                                 {isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                                Register
+                                Зарегистрироваться
                             </button>
-                            <Link to="/Login" className="btn btn-link">Cancel</Link>
+                            <Link to="/Login" className="btn btn-link">Отменить</Link>
                         </div>
                     </div>
                 </Form>
