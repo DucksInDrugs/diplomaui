@@ -89,7 +89,7 @@ function AddOrEditVideo() {
                     <h1>{isAddMode ? 'Добавить видео' : 'Изменить видео'}</h1>
                     <div className="form-row">
                         <div className="form-group col-3">
-                            <label>Категория</label>
+                            <label>Тема</label>
                             <Field name="categoryId" as="select" className={'form-control' + (errors.categoryId && touched.categoryId ? ' is-invalid' : '')}>
                                 <option value=""></option>
                                 {categories && categories.map(category =>

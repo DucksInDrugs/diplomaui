@@ -95,6 +95,10 @@ max-width: 1154px;
   padding: 24px;
   background: #fff;
   gap: 16px;
+  a img {
+    width: 318px;
+    height: 236px;
+  }
 }
 
 .card-text {
@@ -365,4 +369,22 @@ h1 {
   width: 90px;
   height: 90px;
   margin-right: 3px;
+}
+
+.random-task-body {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  border: 3px solid #dfd7bf;
+  flex-direction: column;
+  width: 1148px;
+  height: 400px;
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 315px;
+    max-width: 560px;
+    margin-bottom: 20px;
+  }
 }

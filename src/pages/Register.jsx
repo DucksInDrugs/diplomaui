@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import { alertService } from "../API/AlertService";
 import { userService } from '../API/UserService';
 
-function Register({history}) {
+function Register() {
     const initialValues = {
         username: '',
         email: '',
@@ -33,12 +33,12 @@ function Register({history}) {
         setStatus();
         userService.register(fields)
             .then(() => {
-                alertService.success('Регистрация успешна', { keepAfterRouteChange: true });
                 navigate('/login');
+                alert('Вы успешно зарегистрировались')
             })
             .catch(error => {
                 setSubmitting(false);
-                alertService.error(error);
+                //alertService.error(error);
             });
     }
 

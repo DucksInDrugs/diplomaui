@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {userService} from './API/UserService';
 
 userService.refreshToken().finally(loadApp);
-
+//loadApp()
 function loadApp(){
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

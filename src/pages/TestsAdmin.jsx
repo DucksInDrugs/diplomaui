@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
 import * as Yup from 'yup';
-import { alertService } from '../API/AlertService';
 import TestService from '../API/TestService';
 import { useFetching } from '../hooks/useFetching';
 import CategoryService from '../API/CategoryService';
@@ -34,8 +33,7 @@ function TestsAdmin() {
             <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th style={{ width: '45%' }}>Название теста</th>
-                        <th style={{ width: '45%' }}>Вопрос</th>
+                        <th style={{ width: '90%' }}>Название теста</th>
                         <th style={{ width: '10%' }}></th>
                     </tr>
                 </thead>
@@ -43,7 +41,6 @@ function TestsAdmin() {
                     {tests && tests.map(test =>
                         <tr key={test.id}>
                             <td>{test.testName}</td>
-                            <td>{test.question}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
                                 <Link to={`/test-edit/${test.id}`} className="btn btn-sm btn-primary mr-1">Изменить</Link>
                                 <button onClick={() => deleteTest(test.id)} className="btn btn-sm btn-danger" style={{ width: '65px' }} disabled={test.isDeleting}>

@@ -29,7 +29,7 @@ function CategoriesAdmin() {
 
     return (
         <div className="content">
-            <h1>Категории</h1>
+            <h1>Темы</h1>
             <Link to='/category-add' className="btn btn-sm btn-success mb-2">Создать</Link>
             <Link to={`/profile`} className="btn btn-sm btn-secondary mb-2">Меню</Link>
             <table className="table table-striped">

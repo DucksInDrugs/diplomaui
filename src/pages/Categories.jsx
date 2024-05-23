@@ -19,8 +19,7 @@ function Categories() {
   }, [])
 
     return (
-        <div className="App">
-            {/* <StickyNavbar/> */}
+        <div className="content">
             {categoriesError &&
                 <h1>Произошла ошибка ${categoriesError}</h1>
             }

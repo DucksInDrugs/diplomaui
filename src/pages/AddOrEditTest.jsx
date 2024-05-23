@@ -29,6 +29,8 @@ function AddOrEditTest() {
         categoryId: '',
         question: '',
         testName: '',
+        imageUrl: "",
+        videoUrl: "",
         testBody: [
             {
             answerText: '',
@@ -44,6 +46,8 @@ function AddOrEditTest() {
             .required('Вопрос - обязательное поле'),
         testName: Yup.string()
             .required('Название - обязательное поле'),
+        imageUrl: Yup.string().notRequired(),
+        videoUrl: Yup.string().notRequired(),
         testBody: Yup.array()
         .of(
             Yup.object().shape({
@@ -103,7 +107,7 @@ function AddOrEditTest() {
                 if (!isAddMode) {
                     // get user and set form fields
                     TestService.getById(id).then(test => {
-                        const fields = ['categoryId', 'question', 'testName', 'testBody'];
+                        const fields = ['categoryId', 'question', 'testName', 'testBody', 'imageUrl', 'videoUrl'];
                         console.log(test)
                         fields.forEach(field => setFieldValue(field, test[field], false));
                     });
@@ -133,6 +137,16 @@ function AddOrEditTest() {
                             <Field name="testName" type="text" className={'form-control' + (errors.testName && touched.testName ? ' is-invalid' : '')} />
                             <ErrorMessage name="testName" component="div" className="invalid-feedback" />
                         </div>
+                        <div className="form-group col">
+                            <label>Ссылка на картинку</label>
+                            <Field name="imageUrl" type="text" className={'form-control' + (errors.imageUrl && touched.imageUrl ? ' is-invalid' : '')} />
+                            <ErrorMessage name="imageUrl" component="div" className="invalid-feedback" />
+                        </div>
+                        <div className="form-group col">
+                            <label>Ссылка на видео</label>
+                            <Field name="videoUrl" type="text" className={'form-control' + (errors.videoUrl && touched.videoUrl ? ' is-invalid' : '')} />
+                            <ErrorMessage name="videoUrl" component="div" className="invalid-feedback" />
+                        </div>
                     </div>
                     <FieldArray name="testBody">
                     {({ insert, remove, push }) => (
@@ -141,12 +155,12 @@ function AddOrEditTest() {
                             values.testBody.map((answer, index) => (
                                 <>
                             <div className="form-row" key={index}>
-                                <div className="form-group col-11">
+                                <div className="form-group col-10">
                                     <label htmlFor={`testBody.${index}.answerText`}>Ответ на вопрос</label>
                                     <Field name={`testBody.${index}.answerText`} type="text" className={'form-control' + (errors.answerText && touched.answerText ? ' is-invalid' : '')} />
                                     <ErrorMessage name={`testBody.${index}.answerText`} component="div" className="invalid-feedback" />
                                 </div>
-                                <div className="form-group col-1">
+                                <div className="form-group col-2">
                                     <label htmlFor={`testBody.${index}.isCorrect`}>Правильный ответ</label>
                                     <Field name={`testBody.${index}.isCorrect`} type="checkbox"  className={'form-control' + (errors.isCorrect && touched.isCorrect ? ' is-invalid' : '')} />
                                     <ErrorMessage name={`testBody.${index}.isCorrect`} component="div" className="invalid-feedback" />

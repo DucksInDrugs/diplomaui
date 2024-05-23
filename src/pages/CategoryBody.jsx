@@ -47,7 +47,13 @@ function CategoryBody() {
 		VideoService.getByCategoryId(id).then(x => setVideo(x));
 	  }, [id])
 
+	  if(category == null) {
+		return (
+			<div className="content">
 
+			</div>
+		)
+	  }
 
     return (
 			<div className="content">

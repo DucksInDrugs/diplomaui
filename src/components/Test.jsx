@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CompletedTasksService from "../API/CompletedTasksService";
 import { userService } from "../API/UserService";
+import TestResultService from "../API/TestResultService";
 
 const Test = ({tests, completedTask, user, categoryId, categories}) => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -19,8 +20,9 @@ const Test = ({tests, completedTask, user, categoryId, categories}) => {
 			setCurrentQuestion(nextQuestion);
 		} else {
 			setShowScore(true);
+			saveResult();
 			if(isCorrect && score + 1 === tests.length) {
-				saveResult()
+				savePerfectResult()
 			}
 		}
 	};
@@ -39,11 +41,22 @@ const Test = ({tests, completedTask, user, categoryId, categories}) => {
 	}
 
 	function saveResult() {
+		TestResultService.create({result: `${score}/${tests.length}`, passDate: null, userId: user.id, categoryId: categoryId, groupId: user.groupId})
+	}
+
+	function savePerfectResult() {
 		if(completedTask.status === 404) {
 			CompletedTasksService.create({userId: user.id, categoryId: categoryId})
 			const progress = user.progress + 1 / categories.length;
 			userService.updateProgress(user.id, {progress: progress})
 		}
+	}
+	if (tests.length === 0) {
+		return (
+			<div className="questions">
+
+			</div>
+		);
 	}
 
     return (
@@ -64,6 +77,11 @@ const Test = ({tests, completedTask, user, categoryId, categories}) => {
 								<span>Вопрос {currentQuestion + 1}</span>/{tests.length}
 							</div>
 							<div className='question-text'>{tests[currentQuestion].question}</div>
+							{tests[currentQuestion].imageUrl && <img src={tests[currentQuestion].imageUrl}></img>}
+							{tests[currentQuestion].videoUrl && 
+							<div className="video">
+							<iframe width="560" height="315" src={tests[currentQuestion].videoUrl} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+							</div>}
 						</div>
 						<div className='answer-section'>
 							{tests[currentQuestion].testBody.map((answerOption) => (

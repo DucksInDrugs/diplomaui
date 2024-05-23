@@ -4,11 +4,10 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import { userService } from "../API/UserService";
-import { alertService } from "../API/AlertService";
 
 import StickyNavbar from '../components/UI/stickyNavbar/StickyNavbar';
 
-function Login({ history, location }) {
+function Login() {
     const navigate = useNavigate()
 
     const initialValues = {
@@ -24,14 +23,13 @@ function Login({ history, location }) {
     });
 
     function onSubmit({ email, password }, { setSubmitting }) {
-        alertService.clear();
         userService.login(email, password)
             .then(() => {
                 navigate('/');
             })
             .catch(error => {
                 setSubmitting(false);
-                alertService.error(error);
+                alert(error);
             });
     }
 

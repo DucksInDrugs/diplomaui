@@ -99,6 +99,8 @@ function AddOrEditCategory() {
                             <Field name="role" as="select" className={'form-control' + (errors.role && touched.role ? ' is-invalid' : '')}>
                                 <option value=""></option>
                                 <option value="User">Пользователь</option>
+                                <option value="SuperTeacher">Супер учитель</option>
+                                <option value="Teacher">Учитель</option>
                                 <option value="Admin">Админ</option>
                                 <option value="SpecialUser">Специальный пользователь</option>
                             </Field>

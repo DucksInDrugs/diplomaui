@@ -3,7 +3,7 @@ import { userService } from "./UserService";
 export default class CompletedTasksService {
     static async getAll() {
         const response = await fetch(
-            'http://localhost:5071/api/CompletedTasks',
+            'http://localhost:33998/api/CompletedTasks',
             {
                 method: 'get'
             }
@@ -13,7 +13,7 @@ export default class CompletedTasksService {
 
     static async getByIds(userId, categoryId) {
         const response = await fetch(
-            `http://localhost:5071/api/CompletedTasks/TasksByIds/${userId}/${categoryId}`,
+            `http://localhost:33998/api/CompletedTasks/TasksByIds/${userId}/${categoryId}`,
             {
                 method: 'get',
             }
@@ -23,7 +23,7 @@ export default class CompletedTasksService {
 
     static async create(body) {
         const response = await fetch(
-            'http://localhost:5071/api/CompletedTasks/',
+            'http://localhost:33998/api/CompletedTasks/',
             {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
@@ -36,7 +36,7 @@ export default class CompletedTasksService {
 
     static async delete(userId) {
         const response = await fetch(
-            `http://localhost:5071/api/CompletedTasks/${userId}`,
+            `http://localhost:33998/api/CompletedTasks/${userId}`,
             {
                 method: 'DELETE'
             }

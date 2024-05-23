@@ -1,9 +1,9 @@
 import { userService } from "./UserService";
 
-export default class CategoryService {
+export default class ArticleService {
     static async getAll() {
         const response = await fetch(
-            'http://localhost:33998/api/Categories',
+            'http://localhost:33998/api/Articles',
             {
                 method: 'get'
             }
@@ -13,18 +13,18 @@ export default class CategoryService {
 
     static async getById(id) {
         const response = await fetch(
-            `http://localhost:33998/api/Categories/${id}`,
+            `http://localhost:33998/api/Articles/${id}`,
             {
                 method: 'get',
-                headers: userService.authHeader(`http://localhost:33998/api/Categories/${id}`)
+                headers: userService.authHeader(`http://localhost:33998/api/Articles/${id}`)
             }
         )
         return response.json();
     }
 
-    static async getFirstFour() {
+    static async getFirst() {
         const response = await fetch(
-            'http://localhost:33998/api/Categories/FirstCategories',
+            'http://localhost:33998/api/Articles/FirstArticles',
             {
                 method: 'get'
             }
@@ -34,10 +34,10 @@ export default class CategoryService {
 
     static async create(body) {
         const response = await fetch(
-            'http://localhost:33998/api/Categories/',
+            'http://localhost:33998/api/Articles/',
             {
                 method: 'post',
-                headers: { 'Content-Type': 'application/json', ...userService.authHeader(`http://localhost:33998/api/Categories`) },
+                headers: { 'Content-Type': 'application/json', ...userService.authHeader(`http://localhost:33998/api/Articles`) },
                 credentials: 'include',
                 body: JSON.stringify(body)
             }
@@ -47,10 +47,10 @@ export default class CategoryService {
 
     static async update(id, body) {
         const response = await fetch(
-            `http://localhost:33998/api/Categories/${id}`,
+            `http://localhost:33998/api/Articles/${id}`,
             {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json', ...userService.authHeader(`http://localhost:33998/api/Categories/${id}`) },
+                headers: { 'Content-Type': 'application/json', ...userService.authHeader(`http://localhost:33998/api/Articles/${id}`) },
                 body: JSON.stringify(body)
             }
         )
@@ -59,10 +59,10 @@ export default class CategoryService {
 
     static async delete(id) {
         const response = await fetch(
-            `http://localhost:33998/api/Categories/${id}`,
+            `http://localhost:33998/api/Articles/${id}`,
             {
                 method: 'DELETE',
-                headers: userService.authHeader(`http://localhost:33998/api/Categories/${id}`)
+                headers: userService.authHeader(`http://localhost:33998/api/Articles/${id}`)
             }
         )
         return response.json();
@@ -70,7 +70,17 @@ export default class CategoryService {
 
     static async getByRole(role) {
         const response = await fetch(
-            `http://localhost:33998/api/Categories/CategoriesByRole/${role}`,
+            `http://localhost:33998/api/Articles/ArticlesByRole/${role}`,
+            {
+                method: 'get'
+            }
+        )
+        return response.json();
+    }
+
+    static async getByGroupId(groupId) {
+        const response = await fetch(
+            `http://localhost:33998/api/Articles/ArticlesByGroup/${groupId}`,
             {
                 method: 'get'
             }

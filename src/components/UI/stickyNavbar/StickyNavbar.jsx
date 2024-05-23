@@ -40,18 +40,18 @@ const StickyNavbar = () => {
                     <img className='gif' src={theme}></img>
                 </>}
             </NavLink>
-            <NavLink to="/books">
+            <NavLink to="/articles">
                 <img src={books} className={classes.images}></img>
-                {!user || user.progress <= 0.5 ? <span>Книги</span> 
+                {!user || user.progress <= 0.5 ? <span>Статьи</span> 
                 : <>
                     <img className='gif' src={many}></img>
                     <img className='gif' src={book}></img>
                 </>}
             </NavLink>
-            <NavLink to="#">   
+            {/* <NavLink to="#">   
                 <img src={videos} className={classes.images}></img>
                 Видео
-            </NavLink>
+            </NavLink> */}
             {/* <SearchInput/> */}
             { user ?
             <div className={classes.profilelink}>
@@ -59,7 +59,7 @@ const StickyNavbar = () => {
                 <img src={profile} className={classes.images}></img>
                 {user.username}
             </NavLink>
-            <NavLink onClick={userService.logout}>
+            <NavLink onClick={userService.logout} to='/'>
                 <img src={logout} className={classes.images}></img>
                 {user.progress <= 0.25 ? <span>Выход</span> : <img className='gif' src={quit}></img>}
             </NavLink>
